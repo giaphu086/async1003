@@ -33,27 +33,3 @@ function chiaPromise(a, b) {
         });
     });
 }
-
-function tinhDienTichHinhThang(a, b, h, cb) {
-    return congPromise(a, b)
-    .then(tong => nhanPromise(tong, h))
-    .then(tich => chiaPromise(tich, 2));
-}
-
-// tinhDienTichHinhThang(4, 5, 6)
-// .then(result => console.log(result))
-// .catch(error => console.log(error));
-
-// tinhDienTichHinhThang(4, 5, 'x', (error, result) => {
-//     console.log(error || result);
-// });
-
-congPromise(4, 5)
-.then(tong => {
-    // return nhanPromise(tong, 6);
-    return 10;
-})
-.then(tich => chiaPromise(tich, 2))
-.then(kq => console.log(kq))
-.catch(error => console.log(error.message))
-.then(x => console.log('x =',x));
