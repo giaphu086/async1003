@@ -35,33 +35,30 @@ function chiaPromise(a, b) {
 }
 
 async function tinhDienTich(a, b, c) {
-    const tong = await congPromise(a, b);
-    console.log('tong =', tong);
-    const tich = await nhanPromise(tong, c);
-    console.log('tich =', tich);
-    const kq = await chiaPromise(tich, 2);
-    console.log('kq =', kq);
+    const tong = await congPromise(a, b).catch(error => {
+        throw new Error('Loi cong');
+    });
+    const tich = await nhanPromise(tong, c).catch(error => {
+        throw new Error('Loi nhan');
+    });
+    const kq = await chiaPromise(tich, 2).catch(error => {
+        throw new Error('Loi chia');
+    });
     return kq;
 }
 
-tinhDienTich(4, 5, 6);
-tinhDienTich(2, 3, 4);
-tinhDienTich(7, 8, 9);
+tinhDienTich(4, 'y', 'x')
+.then(result => console.log(result))
+.catch(error => console.log(error))
+// [1, 2, 3].forEach(async () => {
+//     const dt = await tinhDienTich(4, 5, 6);
+//     console.log(dt);
+// });
+// async function start() {
+//     for (let i = 0; i < 3; i++) {
+//         const dt = await tinhDienTich(4, 5, 6);
+//         console.log(dt);
+//     }
+// }
 
-// tinhDienTich(4, 5, 'x')
-// .then(kq => console.log(kq))
-// .catch(error => console.log(error.message));
-
-function tinhDienTichSync(a, b, c) {
-    const tong = a + b;
-    console.log('tong =', tong);
-    const tich = tong * c;
-    console.log('tich =', tich);
-    const kq = tich / 2;
-    console.log('kq =', kq);
-    return kq;
-}
-
-// tinhDienTichSync(4, 5, 6);
-// tinhDienTichSync(2, 3, 4);
-// tinhDienTichSync(7, 8, 9);
+// start();
