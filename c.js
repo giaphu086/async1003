@@ -27,3 +27,21 @@ function chia(a, b, cb) {
         cb(null, body);
     });
 }
+
+function tinh(a, b, c, d, cb) {
+    cong(a, b, (errorCong, tong) => {
+        if (errorCong) return cb(errorCong);
+        nhan(tong, c, (errorNhan, tich) => {
+            if (errorNhan) return cb(errorNhan);
+            chia(tich, d, (errorChia, result) => {
+                if (errorChia) return cb(errorChia);
+                cb(null, result);
+            })
+        })
+    });
+}
+
+tinh(4, 5, 6, 0, (error, result) => {
+    if (error) return console.log(error);
+    console.log(result);
+}); 
